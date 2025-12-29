@@ -1,47 +1,42 @@
-import React, { useRef, useState } from 'react';
+
+import React from 'react';
 
 const projects = [
   {
     id: 1,
     title: "Modern 3BHK Residence",
     type: "Residential Interior",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-modern-apartment-living-room-interior-41559-large.mp4",
-    poster: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800"
+    video: "/videos/sbcproject1.mp4"
   },
   {
     id: 2,
     title: "Luxury Villa Interior",
     type: "Bespoke Styling",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-interior-of-a-modern-living-room-41561-large.mp4",
-    poster: "https://images.unsplash.com/photo-1600607687940-4e2003554b2a?auto=format&fit=crop&q=80&w=800"
+    video: "/videos/sbcproject2.mp4"
   },
   {
     id: 3,
     title: "Elegant Apartment Styling",
     type: "Modern Minimalist",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-modern-interior-design-panning-41558-large.mp4",
-    poster: "https://images.unsplash.com/photo-1616486341351-70252447c574?auto=format&fit=crop&q=80&w=800"
+    video: "/videos/sbcproject3.mp4"
   },
   {
     id: 4,
     title: "Contemporary Penthouse",
     type: "Penthouse Suite",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-luxury-modern-living-room-41560-large.mp4",
-    poster: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=800"
+    video: "/videos/sbcproject4.mp4"
   },
   {
     id: 5,
     title: "Bespoke Office Space",
     type: "Commercial Interior",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-modern-living-room-with-a-large-window-41562-large.mp4",
-    poster: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
+    video: "/videos/sbcproject5.mp4"
   },
   {
     id: 6,
     title: "Minimalist Studio",
     type: "Interior Styling",
-    video: "https://assets.mixkit.co/videos/preview/mixkit-modern-kitchen-interior-design-41563-large.mp4",
-    poster: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&q=80&w=800"
+    video: "/videos/sbcproject6.mp4"
   }
 ];
 
@@ -72,49 +67,29 @@ const ProjectsSection: React.FC = () => {
 };
 
 const ProjectCard: React.FC<{ project: typeof projects[0]; delay: number }> = ({ project, delay }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    videoRef.current?.play().catch(() => {});
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    videoRef.current?.pause();
-    if (videoRef.current) videoRef.current.currentTime = 0;
-  };
-
   return (
     <div 
-      className="reveal-on-scroll group relative aspect-[3/4] overflow-hidden rounded-xl cursor-pointer bg-[#F6F4F0]"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      style={{ transitionDelay: `${delay}s`, transform: isHovered ? 'scale(1.02)' : 'scale(1)' }}
+      className="reveal-on-scroll group relative aspect-[3/4] overflow-hidden rounded-xl cursor-pointer bg-[#F6F4F0] shadow-sm hover:shadow-2xl transition-all duration-1000"
+      style={{ transitionDelay: `${delay}s` }}
     >
-      <img 
-        src={project.poster} 
-        alt={project.title} 
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${isHovered ? 'opacity-0 scale-110' : 'opacity-100 scale-100'}`}
-      />
-
+      {/* Autoplaying Background Video */}
       <video
-        ref={videoRef}
+        autoPlay
         muted
         loop
         playsInline
-        poster={project.poster}
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-out ${isHovered ? 'opacity-100 scale-105' : 'opacity-0 scale-100'}`}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] ease-out group-hover:scale-110"
       >
         <source src={project.video} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-700"></div>
+      {/* Elegant Dark Overlay Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-50 group-hover:opacity-80 transition-opacity duration-700"></div>
 
+      {/* Project Details Overlay */}
       <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
         <div className="overflow-hidden">
-           <p className="text-[9px] uppercase tracking-[0.3em] text-white/60 mb-3 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-1000 ease-out">
+           <p className="text-[9px] uppercase tracking-[0.3em] text-white/70 mb-3 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-1000 ease-out">
              {project.type}
            </p>
         </div>
