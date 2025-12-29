@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
             className="w-full h-full object-cover ken-burns"
           >
             <source 
-              src="https://assets.mixkit.co/videos/preview/mixkit-luxury-modern-living-room-41560-large.mp4" 
+              src="/videos/hero.mp4" 
               type="video/mp4" 
             />
           </video>
